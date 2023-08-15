@@ -1,0 +1,36 @@
+body {
+	background: #212121;
+	color: #cfc6b8;
+}
+
+#game {
+	border: 1px #cfc6b8 solid;
+	width: 640px;
+	height: 410px;
+}
+
+#gui,
+#lifes {
+	display: flex;
+	flex-wrap: wrap;
+	height: 26px;
+	align-items: center;
+}
+
+#gui {
+	gap: .5rem
+}
+
+#coin_icon {
+	width: 16px;
+	height: 16px;
+}
+
+#coins {
+	width: 40px;
+}
+
+#lifes > img {
+	width: 22px;
+	height: 22px;
+}
