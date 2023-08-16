@@ -1,12 +1,13 @@
-import { Entity } from './entities'
+import { Enemy } from './enemy'
 import Ene1Sprite from './assets/ene1.png'
 
-class Ene1 extends Entity {
+class Ene1 extends Enemy {
 	constructor(x, y) {
 		const options = {
 			x: x,
 			y: y,
-			sprite: Ene1Sprite
+			sprite: Ene1Sprite,
+      life: 100
 		}
 		super(options)
 		this.options = options

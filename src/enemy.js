@@ -1,31 +1,36 @@
-class Entity {
-	constructor(options = {x: 0, y: 0, sprite: ''}) {
+class Enemy {
+	constructor(options = {x: 0, y: 0, sprite: '', life: 100}) {
 		this.position = {
       x: options.x,
       y: options.y
     }
     this.image = new Image();
     this.center = {
-      x: options.x ,
-      y: options.y
+      x: options.x + 7,
+      y: options.y + 7
     }
     this.velocity = {
       x: 0,
       y: 0
     }
-    this.radius = 9
+    this.radius = 10
     this.image.src = options.sprite
     this.wpIndex = 0
-    this.life = 100
+    this.life = options.life
 	}
 
   draw() {
+    ctx.beginPath()
+    ctx.fillStyle = 'rgba(255,0,0,.5)'
+    ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
+    ctx.fill()
+    
     // Life bar
-    ctx.fillStyle = '#3cacd7'
-    ctx.fillRect(this.position.x, this.position.y + 16, 16, 4)
+    ctx.fillStyle = '#e6482e'
+    ctx.fillRect(this.position.x, this.position.y + 18, 16, 6)
     
     ctx.fillStyle = '#38d973'
-    ctx.fillRect(this.position.x + 1, this.position.y + 17, (14 * this.life) / 100, 2);
+    ctx.fillRect(this.position.x + 1, this.position.y + 19, (14 * this.life) / 100, 4);
 
     ctx.drawImage(this.image, this.position.x, this.position.y, 16, 16);
   }
@@ -37,8 +42,8 @@ class Entity {
     const yDistance = waypoint.y - this.center.y
     const angle = Math.atan2(yDistance, xDistance)
 
-    this.velocity.x = Math.cos(angle) * .25
-    this.velocity.y = Math.sin(angle) * .25
+    this.velocity.x = Math.cos(angle) * .45
+    this.velocity.y = Math.sin(angle) * .45
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
 
@@ -55,4 +60,4 @@ class Entity {
   }
 }
 
-export { Entity }
+export { Enemy }

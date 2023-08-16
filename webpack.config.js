@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const path = require('path');
 
 module.exports = {
@@ -39,9 +40,11 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [
+      `...`,
       new TerserPlugin({
         minify: TerserPlugin.uglifyJsMinify
       }),
+      new CssMinimizerPlugin(),
     ],
   },
 };
