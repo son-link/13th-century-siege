@@ -4,7 +4,7 @@ import map from './assets/map.png'
 import tower from './assets/tower.png'
 
 import { Ene1 } from './ene1.js'
-import waypoints from './paths.js'
+import waypoints from './waypoints.js'
 import { Towers } from "./towers.js";
 import builds_pos from "./builds_pos.js";
 
@@ -143,7 +143,7 @@ canvas.addEventListener('click', e => {
   const mouseX = Math.round(e.clientX)
   const mouseY = Math.round(e.clientY) - offsetY
 
-  for(let i = 0; i < buildsPlaces.length -1; i++) {
+  for(let i = 0; i < buildsPlaces.length; i++) {
     const place = buildsPlaces[i]
 
     if (
