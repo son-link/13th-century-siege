@@ -144,6 +144,9 @@ const reset = () => {
   towers = []
   coins = 100
   enemiesKilled = 0
+  lifes = 5
+  wave = 0
+  startWave = false
   updateGui = true
 }
 
