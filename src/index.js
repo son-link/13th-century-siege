@@ -139,6 +139,14 @@ const newWave = (enemiesCount) => {
   }
 }
 
+const reset = () => {
+  enemies = []
+  towers = []
+  coins = 100
+  enemiesKilled = 0
+  updateGui = true
+}
+
 canvas.addEventListener('click', e => {
   const mouseX = Math.round(e.clientX)
   const mouseY = Math.round(e.clientY) - offsetY
@@ -161,8 +169,8 @@ canvas.addEventListener('click', e => {
 })
 
 $('#start_game').addEventListener('click', () => {
+  reset()
   gameStatus = 2
-  enemies = []
   newWave(3)
   setTimeout( () => startWave = true, 5000)
   $('#screens').style.display = 'none'
