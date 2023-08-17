@@ -27,8 +27,9 @@ body {
 	height: 22px;
 	display: inline-block;
 	background-position: center;
-	background-size: 22px;
+	background-size: 16px;
 	background-image: url(coin.png);
+	background-repeat: no-repeat;
 }
 
 #coins {
@@ -47,7 +48,7 @@ body {
 	background-image: url(heart.png);
 }
 
-#lifes .empty_heart {
+#lifes .heart_empty {
 	background-image: url(heart_empty.png);
 }
 
