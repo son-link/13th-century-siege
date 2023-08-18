@@ -74,7 +74,6 @@ const update = (timestamp) => {
         const distance = Math.hypot(xDiff, yDiff)
         if (distance < ene.radius + projectile.radius) {
           projectile.target.life -= 10
-          console.log(projectile.target.life)
           tower.proyectiles.splice(i, 1)
         }
       }
@@ -138,13 +137,16 @@ const newWave = (enemiesCount) => {
   waveEnemies += enemiesCount
   enemies = []
 
-  for (let i = 0; i < waveEnemies; i++) {
-    const offset = enemiesOffset * (i+1)
+  const _enes = []
+  for (let i = 0; i < waveEnemies; i++)
+    (wave >= 4 && i >= Math.floor(waveEnemies / 3)) ? _enes.push(2) : _enes.push(1)
 
-    if (wave >= 1 && i > 4) enemies.push(new Ene2(waypoints[0].x - offset, waypoints[0].y - 8))
-    enemies.push(new Ene1(waypoints[0].x - offset, waypoints[0].y - 8))
-  }
-  enemies = enemies.sort((a,b) => 0.5 - Math.random());
+  _enes.sort( () => Math.random() - 0.5)
+  _enes.forEach( (ene, i) => {
+    const offset = enemiesOffset * (i+1)
+    if (ene == 1) enemies.push(new Ene1(waypoints[0].x - offset, waypoints[0].y - 8))
+    else enemies.push(new Ene2(waypoints[0].x - offset, waypoints[0].y - 8))    
+  })
 }
 
 const reset = () => {
