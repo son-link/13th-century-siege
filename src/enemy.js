@@ -17,6 +17,7 @@ class Enemy {
     this.image.src = options.sprite
     this.wpIndex = 0
     this.life = options.life
+    this.lifeOri = options.life
 	}
 
   draw() {
@@ -30,7 +31,7 @@ class Enemy {
     ctx.fillRect(this.position.x, this.position.y + 18, 16, 6)
     
     ctx.fillStyle = '#38d973'
-    ctx.fillRect(this.position.x + 1, this.position.y + 19, (14 * this.life) / 100, 4);
+    ctx.fillRect(this.position.x + 1, this.position.y + 19, (14 * this.percentLife) / 100, 4);
 
     ctx.drawImage(this.image, this.position.x, this.position.y, 16, 16);
   }
@@ -42,8 +43,8 @@ class Enemy {
     const yDistance = waypoint.y - this.center.y
     const angle = Math.atan2(yDistance, xDistance)
 
-    this.velocity.x = Math.cos(angle) * .45
-    this.velocity.y = Math.sin(angle) * .45
+    this.velocity.x = Math.cos(angle) * .40
+    this.velocity.y = Math.sin(angle) * .40
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
 
@@ -57,6 +58,8 @@ class Enemy {
     ) {
       this.wpIndex++
     }
+
+    this.percentLife = (100 * this.life) / this.lifeOri
   }
 }
 

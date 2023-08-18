@@ -30,7 +30,7 @@ class Towers {
   }
 
   update() {
-    if (this.frames % 30 == 0) {
+    if (this.frames % 60 == 0) {
       for(let i = 0; i < enemies.length; i++) {
         const ene = enemies[i]
         let xDistance = ene.position.x - this.position.x

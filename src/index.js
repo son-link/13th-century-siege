@@ -4,6 +4,7 @@ import map from './assets/map.png'
 import tower from './assets/tower.png'
 
 import { Ene1 } from './ene1.js'
+import { Ene2 } from './ene2.js'
 import waypoints from './waypoints.js'
 import { Towers } from "./towers.js";
 import builds_pos from "./builds_pos.js";
@@ -20,10 +21,12 @@ let lifes = 5
 let updateGui = true
 let enemiesKilled = true
 let wave = 0
+let waveEnemies = 0
 let towers = []
 let buildsPlaces = []
 let startWave = false
-let enemiesOffset = 22
+let enemiesOffset = 64
+let timestampStart = null
 const offsetY = 26 // Lo que ocupa la barra de información del juego
 
 // 1: Start screen, 2: In game, 3: Game Over
@@ -56,7 +59,7 @@ imagen.onload = () => {
 
 imagen.src = map
 
-const update = () => {
+const update = (timestamp) => {
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
@@ -71,6 +74,7 @@ const update = () => {
         const distance = Math.hypot(xDiff, yDiff)
         if (distance < ene.radius + projectile.radius) {
           projectile.target.life -= 10
+          console.log(projectile.target.life)
           tower.proyectiles.splice(i, 1)
         }
       }
@@ -82,7 +86,7 @@ const update = () => {
       const lastWaypoint = waypoints[waypoints.length - 1]
 
       for(let i = enemies.length -1; i >= 0; i--) {
-        if (enemies[i].life == 0) {
+        if (enemies[i].life <= 0) {
           enemies.splice(i, 1)
           coins += 10
           updateGui = true
@@ -107,7 +111,8 @@ const update = () => {
 
     // Wait 5 seconds before next wave
     if (enemies.length == 0 && startWave) {
-      enemiesOffset -= 2
+      enemiesOffset -= 4
+      wave++
       startWave = false
       setTimeout( () => {
         newWave(2)
@@ -130,22 +135,26 @@ const update = () => {
 }
 
 const newWave = (enemiesCount) => {
-  wave += enemiesCount
+  waveEnemies += enemiesCount
   enemies = []
 
-  for (let i = 0; i < wave; i++) {
+  for (let i = 0; i < waveEnemies; i++) {
     const offset = enemiesOffset * (i+1)
+
+    if (wave >= 1 && i > 4) enemies.push(new Ene2(waypoints[0].x - offset, waypoints[0].y - 8))
     enemies.push(new Ene1(waypoints[0].x - offset, waypoints[0].y - 8))
   }
+  enemies = enemies.sort((a,b) => 0.5 - Math.random());
 }
 
 const reset = () => {
   enemies = []
   towers = []
-  coins = 100
+  coins = 200
   enemiesKilled = 0
   lifes = 5
   wave = 0
+  waveEnemies = 0
   startWave = false
   updateGui = true
 }
