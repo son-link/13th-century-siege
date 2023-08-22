@@ -86,8 +86,8 @@ const update = (timestamp) => {
 
       for(let i = enemies.length -1; i >= 0; i--) {
         if (enemies[i].life <= 0) {
+          coins += enemies[i].coins
           enemies.splice(i, 1)
-          coins += 10
           updateGui = true
           enemiesKilled++
         } else if (
