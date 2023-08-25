@@ -1,5 +1,5 @@
 class Enemy {
-	constructor(options = {x: 0, y: 0, sprite: '', life: 100}) {
+	constructor(options = {x: 0, y: 0, sprite: '', life: 100, coins: 10}) {
 		this.position = {
       x: options.x,
       y: options.y
@@ -18,6 +18,7 @@ class Enemy {
     this.wpIndex = 0
     this.life = options.life
     this.lifeOri = options.life
+    this.coins = options.coins
 	}
 
   draw() {

@@ -7,7 +7,7 @@ class Ene1 extends Enemy {
       x: x,
       y: y,
       sprite: Ene1Sprite,
-      life: 100,
+      life: 80,
       coins: 10
     }
     super(options)
