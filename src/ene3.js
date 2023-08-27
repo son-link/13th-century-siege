@@ -1,19 +1,19 @@
 import { Enemy } from './enemy'
-import Ene1Sprite from './assets/ene1.png'
+import Ene3Sprite from './assets/ene3.png'
 
-class Ene1 extends Enemy {
+class Ene3 extends Enemy {
   constructor(x, y) {
     const options = {
       x: x,
       y: y,
-      sprite: Ene1Sprite,
-      life: 80,
+      sprite: Ene3Sprite,
+      life: 70,
       coins: 10,
-      speed: .40
+      speed: .80
     }
     super(options)
     this.options = options
   }
 }
 
-export { Ene1 }
+export { Ene3 }

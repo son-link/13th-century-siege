@@ -5,6 +5,7 @@ import tower from './assets/tower.png'
 
 import { Ene1 } from './ene1.js'
 import { Ene2 } from './ene2.js'
+import { Ene3 } from './ene3.js'
 import waypoints from './waypoints.js'
 import { Towers } from "./towers.js";
 import builds_pos from "./builds_pos.js";
@@ -16,7 +17,7 @@ window.scale = 1
 window.enemies = []
 
 // Local variables
-let coins = 150
+let coins = 400
 let lifes = 5
 let updateGui = true
 let enemiesKilled = true
@@ -136,23 +137,30 @@ const update = (timestamp) => {
 const newWave = (enemiesCount) => {
   waveEnemies += enemiesCount
   enemies = []
+  console.log(wave)
 
   const _enes = []
-  for (let i = 0; i < waveEnemies; i++)
-    (wave >= 3 && i >= Math.floor(waveEnemies / 3)) ? _enes.push(2) : _enes.push(1)
+  for (let i = 0; i < waveEnemies; i++) {
+    if (wave >= 3 && i >= 10) _enes.push(2)
+    else if (wave >= 5 && i >= 15) _enes.push(3)
+    else _enes.push(1)
+  }
 
-  _enes.sort( () => Math.random() - 0.5)
+  //_enes.sort( () => Math.random() - 0.5)
+  let _offset = enemiesOffset
   _enes.forEach( (ene, i) => {
-    const offset = enemiesOffset * (i+1)
-    if (ene == 1) enemies.push(new Ene1(waypoints[0].x - offset, waypoints[0].y - 8))
-    else enemies.push(new Ene2(waypoints[0].x - offset, waypoints[0].y - 8))    
+    _offset += enemiesOffset
+    if (i > 0 && i % 5 == 0) _offset += enemiesOffset
+    if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
+    else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
+    else enemies.push(new Ene3(waypoints[0].x - _offset, waypoints[0].y - 8))    
   })
 }
 
 const reset = () => {
   enemies = []
   towers = []
-  coins = 150
+  coins = 400
   enemiesKilled = 0
   lifes = 5
   wave = 1
@@ -171,11 +179,11 @@ canvas.addEventListener('click', e => {
     if (
       (mouseX >= place.x && mouseX <= place.x + 32) &&
       (mouseY >= place.y && mouseY <= place.y + 32) &&
-      !place.isOccupied && coins - 50 >= 0
+      !place.isOccupied && coins - 100 >= 0
     ) {
       towers.push(new Towers(place.x, place.y, tower, 48))
       buildsPlaces[i].isOccupied = true
-      coins -= 50
+      coins -= 100
       updateGui = true
       break
     }

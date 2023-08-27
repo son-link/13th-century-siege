@@ -1,5 +1,5 @@
 class Enemy {
-	constructor(options = {x: 0, y: 0, sprite: '', life: 100, coins: 10}) {
+	constructor(options = {x: 0, y: 0, sprite: '', life: 100, coins: 10, speed: 0.40}) {
 		this.position = {
       x: options.x,
       y: options.y
@@ -19,6 +19,7 @@ class Enemy {
     this.life = options.life
     this.lifeOri = options.life
     this.coins = options.coins
+    this.speed = options.speed
 	}
 
   draw() {
@@ -43,12 +44,12 @@ class Enemy {
     const xDistance = waypoint.x - this.center.x
     const yDistance = waypoint.y - this.center.y
     const angle = Math.atan2(yDistance, xDistance)
+    const _speed = (this.position.x + 16 >= waypoint.x) ? this.speed : .4
 
-    this.velocity.x = Math.cos(angle) * .40
-    this.velocity.y = Math.sin(angle) * .40
+    this.velocity.x = Math.cos(angle) * _speed
+    this.velocity.y = Math.sin(angle) * _speed
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
-
     this.center.x = this.position.x + 8
     this.center.y = this.position.y + 8
 
