@@ -25,7 +25,7 @@ let waveEnemies = 0
 let towers = []
 let buildsPlaces = []
 let startWave = false
-let enemiesOffset = 32
+let enemiesOffset = 28
 let timestampStart = null
 const offsetY = 26 // Lo que ocupa la barra de información del juego
 
