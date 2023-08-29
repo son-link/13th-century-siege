@@ -9,7 +9,7 @@ class Ene2 extends Enemy {
       sprite: sprite,
       life: 140,
       coins: 15,
-      speed: 0.3
+      speed: 0.2
     }
     super(options)
     this.options = options

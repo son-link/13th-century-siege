@@ -17,7 +17,7 @@ window.scale = 1
 window.enemies = []
 
 // Local variables
-let coins = 400
+let coins = 200
 let lifes = 5
 let updateGui = true
 let enemiesKilled = true
@@ -115,7 +115,7 @@ const update = (timestamp) => {
       wave++
       startWave = false
       setTimeout( () => {
-        newWave(5)
+        newWave(3)
         startWave = true
       }, 5000)
     }
@@ -149,8 +149,8 @@ const newWave = (enemiesCount) => {
   //_enes.sort( () => Math.random() - 0.5)
   let _offset = enemiesOffset
   _enes.forEach( (ene, i) => {
-    _offset += enemiesOffset
-    if (i > 0 && i % 5 == 0) _offset += enemiesOffset
+    _offset += (wave == 1) ? 24 : enemiesOffset
+    if (i > 0 && i % 6 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
     else enemies.push(new Ene3(waypoints[0].x - _offset, waypoints[0].y - 8))    
@@ -160,7 +160,7 @@ const newWave = (enemiesCount) => {
 const reset = () => {
   enemies = []
   towers = []
-  coins = 400
+  coins = 200
   enemiesKilled = 0
   lifes = 5
   wave = 1
@@ -181,7 +181,7 @@ canvas.addEventListener('click', e => {
       (mouseY >= place.y && mouseY <= place.y + 32) &&
       !place.isOccupied && coins - 100 >= 0
     ) {
-      towers.push(new Towers(place.x, place.y, tower, 48))
+      towers.push(new Towers(place.x, place.y, tower, 52))
       buildsPlaces[i].isOccupied = true
       coins -= 100
       updateGui = true
@@ -193,7 +193,7 @@ canvas.addEventListener('click', e => {
 $('#start_game').addEventListener('click', () => {
   reset()
   gameStatus = 2
-  newWave(5)
+  newWave(3)
   setTimeout( () => startWave = true, 5000)
   $('#screens').style.display = 'none'
   $('#start_screen').style.display = 'none'
