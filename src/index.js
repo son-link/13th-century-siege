@@ -27,7 +27,6 @@ let towers = []
 let buildsPlaces = []
 let startWave = false
 let enemiesOffset = 28
-let timestampStart = null
 const offsetY = 26 // Lo que ocupa la barra de información del juego
 
 // 1: Start screen, 2: In game, 3: Game Over
@@ -60,7 +59,7 @@ imagen.onload = () => {
 
 imagen.src = map
 
-const update = (timestamp) => {
+const update = () => {
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
@@ -111,7 +110,6 @@ const update = (timestamp) => {
 
     // Wait 5 seconds before next wave
     if (enemies.length == 0 && startWave) {
-      //enemiesOffset -= 4
       wave++
       startWave = false
       setTimeout( () => {
@@ -137,7 +135,6 @@ const update = (timestamp) => {
 const newWave = (enemiesCount) => {
   waveEnemies += enemiesCount
   enemies = []
-  console.log(wave)
 
   const _enes = []
   for (let i = 0; i < waveEnemies; i++) {
