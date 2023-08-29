@@ -8,7 +8,7 @@ class Ene2 extends Enemy {
       y: y,
       sprite: sprite,
       life: 140,
-      coins: 15,
+      coins: 20,
       speed: 0.2
     }
     super(options)

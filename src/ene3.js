@@ -8,8 +8,8 @@ class Ene3 extends Enemy {
       y: y,
       sprite: Ene3Sprite,
       life: 70,
-      coins: 10,
-      speed: .80
+      coins: 25,
+      speed: 1
     }
     super(options)
     this.options = options
