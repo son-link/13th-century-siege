@@ -126,6 +126,7 @@ const update = () => {
       const cssClass = (i <= lifes) ? 'heart' : 'heart_empty'
       $('#lifes').innerHTML +=  `<span class="${cssClass}" /></span>`
     }
+    $('#wave').innerText = `Wave: ${wave}`
     updateGui = false
   }
   
@@ -138,7 +139,7 @@ const newWave = (enemiesCount) => {
 
   const _enes = []
   for (let i = 0; i < waveEnemies; i++) {
-    if (wave >= 3 && i >= 10) _enes.push(2)
+    if (wave >= 3 && i >= 10 && i < 15) _enes.push(2)
     else if (wave >= 5 && i >= 15) _enes.push(3)
     else _enes.push(1)
   }
