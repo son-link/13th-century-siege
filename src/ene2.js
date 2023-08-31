@@ -1,5 +1,5 @@
 import { Enemy } from './enemy'
-import sprite from './assets/ene2.png'
+import sprite from '/assets/ene2.png'
 
 class Ene2 extends Enemy {
   constructor(x, y) {
@@ -7,9 +7,9 @@ class Ene2 extends Enemy {
       x: x,
       y: y,
       sprite: sprite,
-      life: 140,
-      coins: 20,
-      speed: 0.2
+      life: 160,
+      coins: 17,
+      speed: 0.35
     }
     super(options)
     this.options = options

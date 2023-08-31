@@ -1,7 +1,7 @@
 // Game assets
-import css from './assets/style.css'
-import map from './assets/map.png'
-import tower from './assets/tower.png'
+import './style.css'
+import map from '/assets/map.png'
+import tower from '/assets/tower.png'
 
 import { Ene1 } from './ene1.js'
 import { Ene2 } from './ene2.js'
@@ -133,22 +133,37 @@ const update = () => {
   requestAnimationFrame(update)
 }
 
+const calcWavePercent = (percent) => Math.floor(waveEnemies * percent / 100)
+
 const newWave = (enemiesCount) => {
   waveEnemies += enemiesCount
   enemies = []
 
   const _enes = []
   for (let i = 0; i < waveEnemies; i++) {
-    if (wave >= 3 && i >= 10 && i < 15) _enes.push(2)
+    /*if (wave >= 3 && i >= 10 && i < 15) _enes.push(2)
     else if (wave >= 5 && i >= 15) _enes.push(3)
+    else _enes.push(1)*/
+
+    if (wave >= 4 && wave < 7) {
+      if (i >= calcWavePercent(75)) _enes.push(2)
+      else _enes.push(1)
+    }
+    else if (wave >= 7) {
+      if (i >= calcWavePercent(50) && i < calcWavePercent(75)) _enes.push(2)
+      else if (i >= calcWavePercent(75)) _enes.push(3)
+      else _enes.push(1)
+    }
     else _enes.push(1)
   }
+
+  console.log(_enes)
 
   //_enes.sort( () => Math.random() - 0.5)
   let _offset = enemiesOffset
   _enes.forEach( (ene, i) => {
-    _offset += (wave == 1) ? 24 : enemiesOffset
-    if (i > 0 && i % 6 == 0) _offset += enemiesOffset
+    _offset += (wave == 1 || wave > 5) ? 24 : 28
+    //if (i > 0 && i % 6 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
     else enemies.push(new Ene3(waypoints[0].x - _offset, waypoints[0].y - 8))    

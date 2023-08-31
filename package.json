@@ -1,27 +1,16 @@
 {
-  "name": "13s-century-siegue",
+  "name": "13th-century-siegue",
   "version": "0.0.1",
   "description": "A Tower Defense game make for js13kGames 2023",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode development",
-    "dist": "webpack --mode production",
-    "dev": "webpack serve --mode development"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "author": "Alfonso Saavedra \"Son Link\"",
   "license": "ISC",
   "devDependencies": {
-    "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.3",
-    "mini-css-extract-plugin": "^2.7.6",
-    "style-loader": "^3.3.3",
-    "uglify-js": "^3.17.4",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "vite": "^4.4.9"
   }
 }

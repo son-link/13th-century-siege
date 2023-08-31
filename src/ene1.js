@@ -1,5 +1,5 @@
 import { Enemy } from './enemy'
-import Ene1Sprite from './assets/ene1.png'
+import Ene1Sprite from '/assets/ene1.png'
 
 class Ene1 extends Enemy {
   constructor(x, y) {
