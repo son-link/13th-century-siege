@@ -1,5 +1,5 @@
 {
-  "name": "13th-century-siegue",
+  "name": "13th-century-siege",
   "version": "0.0.1",
   "description": "A Tower Defense game make for js13kGames 2023",
   "main": "src/index.js",
@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "author": "Alfonso Saavedra \"Son Link\"",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/son-link/13th-century-siege"
+  },
   "devDependencies": {
     "vite": "^4.4.9"
   }
