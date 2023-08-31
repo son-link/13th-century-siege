@@ -15,6 +15,8 @@ window.$ = (selector) => document.querySelector(selector)
 window.waypoints = waypoints
 window.scale = 1
 window.enemies = []
+window.dt = 0
+window.debug = (import.meta.env.MODE == 'development')
 
 // Local variables
 let coins = 200
@@ -59,7 +61,8 @@ imagen.onload = () => {
 
 imagen.src = map
 
-const update = () => {
+const update = (dt) => {
+  window.dt = dt
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
