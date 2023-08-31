@@ -194,7 +194,7 @@ canvas.addEventListener('click', e => {
       (mouseY >= place.y && mouseY <= place.y + 32) &&
       !place.isOccupied && coins - 100 >= 0
     ) {
-      towers.push(new Towers(place.x, place.y, tower, 52))
+      towers.push(new Towers(place.x, place.y, tower, 49))
       buildsPlaces[i].isOccupied = true
       coins -= 100
       updateGui = true

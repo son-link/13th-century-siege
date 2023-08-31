@@ -13,7 +13,7 @@ class Enemy {
       x: 0,
       y: 0
     }
-    this.radius = 10
+    this.radius = 9
     this.image.src = options.sprite
     this.wpIndex = 0
     this.life = options.life
