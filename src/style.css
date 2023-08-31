@@ -28,7 +28,7 @@ body {
 	display: inline-block;
 	background-position: center;
 	background-size: 16px;
-	background-image: url(./assets/coin.png);
+	background-image: url(/assets/coin.png);
 	background-repeat: no-repeat;
 }
 
@@ -45,11 +45,11 @@ body {
 }
 
 #lifes .heart {
-	background-image: url(./assets/heart.png);
+	background-image: url(/assets/heart.png);
 }
 
 #lifes .heart_empty {
-	background-image: url(./assets/heart_empty.png);
+	background-image: url(/assets/heart_empty.png);
 }
 
 #screens {
