@@ -15,6 +15,7 @@
     "url": "https://github.com/son-link/13th-century-siege"
   },
   "devDependencies": {
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-plugin-zip-pack": "^1.0.6"
   }
 }

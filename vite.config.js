@@ -1,7 +1,14 @@
+import zipPack from "vite-plugin-zip-pack";
+
 module.exports = {
 	root: 'src',
 	build: {
-	  outDir: '../dist'
+	  outDir: '../dist',
+	  emptyOutDir: true
 	},
-  base: ''
+  base: '',
+  plugins: [zipPack({
+	outDir: './',
+	outFileName: '13th-century-siege.zip'
+  })],
 }
