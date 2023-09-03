@@ -15,11 +15,10 @@ window.$ = (selector) => document.querySelector(selector)
 window.waypoints = waypoints
 window.scale = 1
 window.enemies = []
-window.dt = 0
 window.debug = (import.meta.env.MODE == 'development')
 
 // Local variables
-let coins = 200
+let coins = 300
 let lifes = 5
 let updateGui = true
 let enemiesKilled = true
@@ -28,7 +27,7 @@ let waveEnemies = 0
 let towers = []
 let buildsPlaces = []
 let startWave = false
-let enemiesOffset = 28
+let enemiesOffset = 24
 const offsetY = 26 // Lo que ocupa la barra de información del juego
 
 // 1: Start screen, 2: In game, 3: Game Over
@@ -61,8 +60,7 @@ imagen.onload = () => {
 
 imagen.src = map
 
-const update = (dt) => {
-  window.dt = dt
+const update = () => {
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
@@ -116,7 +114,7 @@ const update = (dt) => {
       wave++
       startWave = false
       setTimeout( () => {
-        newWave(3)
+        newWave(4)
         startWave = true
       }, 5000)
     }
@@ -148,11 +146,11 @@ const newWave = (enemiesCount) => {
     else if (wave >= 5 && i >= 15) _enes.push(3)
     else _enes.push(1)*/
 
-    if (wave >= 4 && wave < 7) {
+    if (wave >= 3 && wave < 6) {
       if (i >= calcWavePercent(75)) _enes.push(2)
       else _enes.push(1)
     }
-    else if (wave >= 7) {
+    else if (wave >= 6) {
       if (i >= calcWavePercent(50) && i < calcWavePercent(75)) _enes.push(2)
       else if (i >= calcWavePercent(75)) _enes.push(3)
       else _enes.push(1)
@@ -160,13 +158,13 @@ const newWave = (enemiesCount) => {
     else _enes.push(1)
   }
 
-  console.log(_enes)
-
   //_enes.sort( () => Math.random() - 0.5)
   let _offset = enemiesOffset
+  
   _enes.forEach( (ene, i) => {
-    _offset += (wave == 1 || wave > 5) ? 24 : 28
-    //if (i > 0 && i % 6 == 0) _offset += enemiesOffset
+    _offset += (wave >= 3 && wave % 3 == 0) ? enemiesOffset - (wave / 3) : enemiesOffset
+    //_offset += (wave >= 10) ? 24 : 28
+    if (i > 0 && i % 4 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
     else enemies.push(new Ene3(waypoints[0].x - _offset, waypoints[0].y - 8))    
@@ -176,7 +174,7 @@ const newWave = (enemiesCount) => {
 const reset = () => {
   enemies = []
   towers = []
-  coins = 200
+  coins = 300
   enemiesKilled = 0
   lifes = 5
   wave = 1
