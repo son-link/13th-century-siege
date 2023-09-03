@@ -77,6 +77,12 @@ const update = () => {
           projectile.target.life -= 20
           tower.proyectiles.splice(i, 1)
         }
+
+        const projectDistance = Math.hypot(
+          projectile.position.x - tower.center.x,
+          projectile.position.y - tower.center.y
+        )
+        if (projectDistance >= tower.radius) tower.proyectiles.splice(i, 1)
       }
     })
 
@@ -155,7 +161,7 @@ const newWave = (enemiesCount) => {
       else if (i >= calcWavePercent(75)) _enes.push(3)
       else _enes.push(1)
     }
-    else _enes.push(1)
+    else _enes.push(3)
   }
 
   //_enes.sort( () => Math.random() - 0.5)
