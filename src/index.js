@@ -161,7 +161,7 @@ const newWave = (enemiesCount) => {
       else if (i >= calcWavePercent(75)) _enes.push(3)
       else _enes.push(1)
     }
-    else _enes.push(3)
+    else _enes.push(1)
   }
 
   //_enes.sort( () => Math.random() - 0.5)
