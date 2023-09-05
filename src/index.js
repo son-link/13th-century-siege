@@ -27,7 +27,7 @@ let waveEnemies = 0
 let towers = []
 let buildsPlaces = []
 let startWave = false
-let enemiesOffset = 24
+let enemiesOffset = 26
 const offsetY = 26 // Lo que ocupa la barra de información del juego
 
 // 1: Start screen, 2: In game, 3: Game Over
@@ -82,7 +82,7 @@ const update = () => {
           projectile.position.x - tower.center.x,
           projectile.position.y - tower.center.y
         )
-        if (projectDistance >= tower.radius) tower.proyectiles.splice(i, 1)
+        if (projectDistance >= tower.radius + 2) tower.proyectiles.splice(i, 1)
       }
     })
 
@@ -147,21 +147,12 @@ const newWave = (enemiesCount) => {
   enemies = []
 
   const _enes = []
-  for (let i = 0; i < waveEnemies; i++) {
-    /*if (wave >= 3 && i >= 10 && i < 15) _enes.push(2)
-    else if (wave >= 5 && i >= 15) _enes.push(3)
-    else _enes.push(1)*/
-
-    if (wave >= 3 && wave < 6) {
-      if (i >= calcWavePercent(75)) _enes.push(2)
+  for (let i = 1; i <= wave; i++) {
+    [...Array(4)].forEach( () => {
+      if (i >= 3 && i % 3 == 0) _enes.push(2)
+      else if (i >= 5 && i % 5 == 0) enes.push(3)
       else _enes.push(1)
-    }
-    else if (wave >= 6) {
-      if (i >= calcWavePercent(50) && i < calcWavePercent(75)) _enes.push(2)
-      else if (i >= calcWavePercent(75)) _enes.push(3)
-      else _enes.push(1)
-    }
-    else _enes.push(1)
+    })
   }
 
   //_enes.sort( () => Math.random() - 0.5)
