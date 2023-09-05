@@ -150,7 +150,7 @@ const newWave = (enemiesCount) => {
   for (let i = 1; i <= wave; i++) {
     [...Array(4)].forEach( () => {
       if (i >= 3 && i % 3 == 0) _enes.push(2)
-      else if (i >= 5 && i % 5 == 0) enes.push(3)
+      else if (i >= 5 && i % 5 == 0) _enes.push(3)
       else _enes.push(1)
     })
   }
