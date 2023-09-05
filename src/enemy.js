@@ -56,8 +56,8 @@ class Enemy {
     this.center.y = this.position.y + 8
 
     if (
-      Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) < Math.abs(this.velocity.x) &&
-      Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) < Math.abs(this.velocity.y) &&
+      Math.abs(this.center.x - waypoint.x) < Math.abs(this.velocity.x) &&
+      Math.abs(this.center.y - waypoint.y) < Math.abs(this.velocity.y) &&
       this.wpIndex < waypoints.length - 1
     ) {
       this.wpIndex++
