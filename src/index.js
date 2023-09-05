@@ -23,7 +23,6 @@ let lifes = 5
 let updateGui = true
 let enemiesKilled = true
 let wave = 1
-let waveEnemies = 0
 let towers = []
 let buildsPlaces = []
 let startWave = false
@@ -120,7 +119,7 @@ const update = () => {
       wave++
       startWave = false
       setTimeout( () => {
-        newWave(4)
+        newWave()
         startWave = true
       }, 5000)
     }
@@ -140,10 +139,7 @@ const update = () => {
   requestAnimationFrame(update)
 }
 
-const calcWavePercent = (percent) => Math.floor(waveEnemies * percent / 100)
-
-const newWave = (enemiesCount) => {
-  waveEnemies += enemiesCount
+const newWave = () => {
   enemies = []
 
   const _enes = []
@@ -155,12 +151,10 @@ const newWave = (enemiesCount) => {
     })
   }
 
-  //_enes.sort( () => Math.random() - 0.5)
   let _offset = enemiesOffset
   
   _enes.forEach( (ene, i) => {
     _offset += (wave >= 3 && wave % 3 == 0) ? enemiesOffset - (wave / 3) : enemiesOffset
-    //_offset += (wave >= 10) ? 24 : 28
     if (i > 0 && i % 4 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
@@ -175,7 +169,6 @@ const reset = () => {
   enemiesKilled = 0
   lifes = 5
   wave = 1
-  waveEnemies = 0
   startWave = false
   updateGui = true
 }
@@ -204,7 +197,7 @@ canvas.addEventListener('click', e => {
 $('#start_game').addEventListener('click', () => {
   reset()
   gameStatus = 2
-  newWave(3)
+  newWave()
   setTimeout( () => startWave = true, 5000)
   $('#screens').style.display = 'none'
   $('#start_screen').style.display = 'none'
