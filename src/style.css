@@ -104,3 +104,15 @@ body {
 #game_over {
 	display: none;
 }
+
+#start_wave {
+	display: none;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background-image: url('assets/enemy_alert.png');
+	background-position: center;
+	background-size: 26px;
+	background-repeat: no-repeat;
+	image-rendering: pixelated;
+}

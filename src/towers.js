@@ -1,7 +1,7 @@
 import { Proyectile } from "./proyectile.js";
 
 class Towers {
-	constructor(x, y, sprite, radius) {
+	constructor(x, y, sprite, radius, type=1) {
     this.position = {
       x: x,
       y: y
@@ -18,6 +18,7 @@ class Towers {
 
     this.targets = []
     this.proyectiles = []
+    this.type = type
   }
 
   draw() {

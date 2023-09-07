@@ -2,6 +2,7 @@
 import './style.css'
 import map from '/assets/map.png'
 import tower from '/assets/tower.png'
+import tower2 from '/assets/tower2.png'
 
 import { Ene1 } from './ene1.js'
 import { Ene2 } from './ene2.js'
@@ -28,6 +29,10 @@ let buildsPlaces = []
 let startWave = false
 let enemiesOffset = 26
 const offsetY = 26 // Lo que ocupa la barra de información del juego
+const first_wp = waypoints[0]
+const swBtn = $('#start_wave')
+swBtn.style.left = `${first_wp.x}px`
+swBtn.style.top = `${first_wp.y + offsetY - 16}px`
 
 // 1: Start screen, 2: In game, 3: Game Over
 let gameStatus = 1
@@ -73,7 +78,7 @@ const update = () => {
         const yDiff = ene.center.y - projectile.position.y
         const distance = Math.hypot(xDiff, yDiff)
         if (distance < ene.radius + projectile.radius) {
-          projectile.target.life -= 20
+          projectile.target.life -= (tower.type == 1) ? 20 : 30
           tower.proyectiles.splice(i, 1)
         }
 
@@ -112,16 +117,20 @@ const update = () => {
           }
         }
       }
+    } else {
+      swBtn.style.display = 'block'
     }
 
     // Wait 5 seconds before next wave
     if (enemies.length == 0 && startWave) {
       wave++
       startWave = false
+      /*
       setTimeout( () => {
         newWave()
         startWave = true
       }, 5000)
+      */
     }
   }
 
@@ -185,7 +194,8 @@ canvas.addEventListener('click', e => {
       (mouseY >= place.y && mouseY <= place.y + 32) &&
       !place.isOccupied && coins - 100 >= 0
     ) {
-      towers.push(new Towers(place.x, place.y, tower, 49))
+      //towers.push(new Towers(place.x, place.y, tower, 49))
+      towers.push(new Towers(place.x, place.y, tower, 49, 1))
       buildsPlaces[i].isOccupied = true
       coins -= 100
       updateGui = true
@@ -198,7 +208,7 @@ $('#start_game').addEventListener('click', () => {
   reset()
   gameStatus = 2
   newWave()
-  setTimeout( () => startWave = true, 5000)
+  //setTimeout( () => startWave = true, 5000)
   $('#screens').style.display = 'none'
   $('#start_screen').style.display = 'none'
 })
@@ -207,4 +217,10 @@ $('#goto_start').addEventListener('click', () => {
   gameStatus = 1
   $('#game_over').style.display = 'none'
   $('#start_screen').style.display = 'block'
+})
+
+swBtn.addEventListener('click', () => {
+  newWave()
+  startWave = true
+  swBtn.style.display = 'none'
 })
