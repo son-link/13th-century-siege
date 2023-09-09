@@ -1,5 +1,5 @@
 // Game assets
-import './style.css'
+import './style.scss'
 import map from '/assets/map.png'
 import tower from '/assets/tower.png'
 import tower2 from '/assets/tower2.png'
@@ -33,6 +33,9 @@ const first_wp = waypoints[0]
 const swBtn = $('#start_wave')
 swBtn.style.left = `${first_wp.x}px`
 swBtn.style.top = `${first_wp.y + offsetY - 16}px`
+
+const towerSelect = $('#tower_select')
+let towerPosSel = {}
 
 // 1: Start screen, 2: In game, 3: Game Over
 let gameStatus = 1
@@ -183,12 +186,14 @@ const reset = () => {
 }
 
 canvas.addEventListener('click', e => {
+  e.stopPropagation()
   const mouseX = Math.round(e.clientX)
   const mouseY = Math.round(e.clientY) - offsetY
 
   for(let i = 0; i < buildsPlaces.length; i++) {
     const place = buildsPlaces[i]
 
+    /*
     if (
       (mouseX >= place.x && mouseX <= place.x + 32) &&
       (mouseY >= place.y && mouseY <= place.y + 32) &&
@@ -200,6 +205,23 @@ canvas.addEventListener('click', e => {
       coins -= 100
       updateGui = true
       break
+    }*/
+    if (
+      (mouseX >= place.x && mouseX <= place.x + 32) &&
+      (mouseY >= place.y && mouseY <= place.y + 32) &&
+      !place.isOccupied
+    ) {
+      towerSelect.style.top = `${place.y + 16}px`
+      towerSelect.style.left = `${place.x - 16}px`
+      towerSelect.style.display = 'flex'
+      towerPosSel = {
+        x: place.x,
+        y: place.y,
+        index: i
+      }
+      break
+    } else {
+      towerSelect.style.display = 'none'
     }
   }
 })
@@ -219,8 +241,30 @@ $('#goto_start').addEventListener('click', () => {
   $('#start_screen').style.display = 'block'
 })
 
+document.querySelectorAll('.tower_btn').forEach( ele => {
+  ele.addEventListener('click', function(e) {
+    if (e.detail > 1) return; // Prevent more than click
+    const type = this.getAttribute('data-tower')
+    const reduceCoins = (type == 1) ? 100 : 150
+    const tSprite =(type == 1) ? tower : tower2
+
+    if (coins - reduceCoins >= 0) {
+      towers.push(new Towers(towerPosSel.x, towerPosSel.y, tSprite, 49, type))
+      buildsPlaces[towerPosSel.index].isOccupied = true
+      coins -= reduceCoins
+      updateGui = true
+    }
+      
+    towerSelect.style.display = 'none'
+  })
+})
+
 swBtn.addEventListener('click', () => {
   newWave()
   startWave = true
   swBtn.style.display = 'none'
+})
+
+window.addEventListener('click', (e) => {
+  towerSelect.style.display = 'none'
 })

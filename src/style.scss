@@ -36,20 +36,22 @@ body {
 	width: 40px;
 }
 
-#lifes > * {
-	width: 22px;
-	height: 22px;
-	display: inline-block;
-	background-position: center;
-	background-size: 22px;
-}
+#lifes {
+	> * {
+		width: 22px;
+		height: 22px;
+		display: inline-block;
+		background-position: center;
+		background-size: 22px;
+	}
 
-#lifes .heart {
-	background-image: url(/assets/heart.png);
-}
+	.heart {
+		background-image: url(/assets/heart.png);
+	}
 
-#lifes .heart_empty {
-	background-image: url(/assets/heart_empty.png);
+	.heart_empty {
+		background-image: url(/assets/heart_empty.png);
+	}
 }
 
 #screens {
@@ -76,17 +78,6 @@ body {
 	color: #e6482e
 }
 
-#start_game,
-#goto_start {
-	font-size: 1.2rem;
-	background: transparent;
-	border: 0;
-	margin: 1rem auto;
-	background: #38d973;
-	font-weight: bold;
-	color: #472d3c;
-}
-
 .title {
 	font-weight: bold;
 	font-size: 3rem;
@@ -105,14 +96,60 @@ body {
 	display: none;
 }
 
-#start_wave {
-	display: none;
-	position: absolute;
-	width: 32px;
+button,
+.tower_btn {
+	min-width: 32px;
 	height: 32px;
-	background-image: url('assets/enemy_alert.png');
+	background-color: transparent;
 	background-position: center;
 	background-size: 26px;
 	background-repeat: no-repeat;
 	image-rendering: pixelated;
+	border: 0;
+}
+
+#start_game,
+#goto_start {
+	font-size: 1.2rem;
+	border: 0;
+	margin: 1rem auto;
+	background-color: #38d973;
+	font-weight: bold;
+	color: #472d3c;
+}
+
+#start_wave {
+	display: none;
+	position: absolute;
+	background-image: url('assets/enemy_alert.png');
+}
+
+#tower_select {
+	position: absolute;
+	display: none;
+	
+	.tower_btn {
+		width: 32px;
+		background-color: #472d3c;
+		color: white;
+		height: 42px;
+		background-position: top center;
+		position: relative;
+		cursor: pointer;
+
+		.tower_price {
+			width: 100%;
+			position: absolute;
+			text-align: center;
+			bottom: 0
+		}
+	}
+
+	#tower1 {
+		background-image: url('assets/tower.png');
+	}
+
+	#tower2 {
+		background-image: url('assets/tower2.png');
+	}
 }
