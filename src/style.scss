@@ -153,3 +153,11 @@ button,
 		background-image: url('assets/tower2.png');
 	}
 }
+
+#vel {
+	border-left: 1px solid;
+	border-right: 1px solid;
+	text-align: center;
+	padding: 0 .5rem;
+	cursor: pointer;
+}

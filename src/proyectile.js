@@ -21,8 +21,8 @@ class Proyectile {
     const xDistance = this.target.center.x - this.position.x
     const yDistance = this.target.center.y - this.position.y
     const angle = Math.atan2(yDistance, xDistance)
-    this.velocity.x = Math.cos(angle)
-    this.velocity.y = Math.sin(angle)
+    this.velocity.x = Math.cos(angle) * speedMulti
+    this.velocity.y = Math.sin(angle) * speedMulti
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
   }

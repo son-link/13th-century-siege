@@ -17,6 +17,7 @@ window.waypoints = waypoints
 window.scale = 1
 window.enemies = []
 window.debug = (import.meta.env.MODE == 'development')
+window.speedMulti = 1
 
 // Local variables
 let coins = 300
@@ -124,7 +125,6 @@ const update = () => {
       swBtn.style.display = 'block'
     }
 
-    // Wait 5 seconds before next wave
     if (enemies.length == 0 && startWave) {
       wave++
       startWave = false
@@ -145,6 +145,7 @@ const update = () => {
       $('#lifes').innerHTML +=  `<span class="${cssClass}" /></span>`
     }
     $('#wave').innerText = `Wave: ${wave}`
+    $('#vel').innerText = `X${speedMulti}`
     updateGui = false
   }
   
@@ -183,6 +184,7 @@ const reset = () => {
   wave = 1
   startWave = false
   updateGui = true
+  speedMulti = 1
 }
 
 canvas.addEventListener('click', e => {
@@ -267,4 +269,10 @@ swBtn.addEventListener('click', () => {
 
 window.addEventListener('click', (e) => {
   towerSelect.style.display = 'none'
+})
+
+$('#vel').addEventListener('click', () => {
+  if (speedMulti < 3) speedMulti++
+  else speedMulti = 1
+  updateGui = true
 })

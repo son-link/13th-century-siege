@@ -46,7 +46,7 @@ class Enemy {
     const xDistance = waypoint.x - this.center.x
     const yDistance = waypoint.y - this.center.y
     const angle = Math.atan2(yDistance, xDistance)
-    const _speed = (this.position.x + 16 >= 0) ? this.speed : .4
+    const _speed = (this.position.x + 16 >= 0) ? this.speed * speedMulti : .4 * speedMulti
 
     this.velocity.x = Math.cos(angle) * _speed
     this.velocity.y = Math.sin(angle) * _speed
