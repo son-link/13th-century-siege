@@ -30,9 +30,12 @@ let buildsPlaces = []
 let startWave = false
 let enemiesOffset = 26
 const offsetY = 26 // Lo que ocupa la barra de información del juego
+let offsetX = 0;
+window.scale = 1
+let scaleCanvas = true
 const first_wp = waypoints[0]
 const swBtn = $('#start_wave')
-swBtn.style.left = `${first_wp.x}px`
+swBtn.style.left = `${first_wp.x + offsetX}px`
 swBtn.style.top = `${first_wp.y + offsetY - 16}px`
 
 const towerSelect = $('#tower_select')
@@ -47,28 +50,21 @@ canvas.height = 384
 window.ctx = canvas.getContext('2d')
 ctx.imageSmoothingEnabled = false
 
-// Load builds positions
-builds_pos.forEach( (row, y) => {
-  row.forEach( (tile, x) => {
-    if (tile == 343) {
-      buildsPlaces.push({
-        x: x * 32,
-        y: y * 32,
-        isOccupied: false
-      })
-    }
-  })
-})
-
 const imagen = new Image()
 
 imagen.onload = () => {
+  onResize()
   update()
 }
 
 imagen.src = map
 
 const update = () => {
+  if (scaleCanvas) {
+    ctx.save()
+    ctx.scale(scale, scale)
+  }
+
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
@@ -149,6 +145,11 @@ const update = () => {
     updateGui = false
   }
   
+  if (scaleCanvas) {
+    ctx.restore()
+    scaleCanvas = false
+  }
+
   requestAnimationFrame(update)
 }
 
@@ -187,9 +188,36 @@ const reset = () => {
   speedMulti = 1
 }
 
+const onResize = () => {
+  const gameStyle = window.getComputedStyle($('#game'))
+  const winHeight = window.innerHeight
+  
+  scale = gameStyle.height.replace('px', '') / (412)
+
+  $('#game').style.width = (winHeight < 420) ? `${640 * scale}px` : '100%'
+  scaleCanvas = true
+
+  const gameOffset = canvas.getBoundingClientRect()
+  offsetX = gameOffset.left
+
+  // Load builds positions
+  buildsPlaces = []
+  builds_pos.forEach( (row, y) => {
+    row.forEach( (tile, x) => {
+      if (tile == 343) {
+        buildsPlaces.push({
+          x: (x * 32) * scale,
+          y: (y * 32) * scale,
+          isOccupied: false
+        })
+      }
+    })
+  })
+}
+
 canvas.addEventListener('click', e => {
   e.stopPropagation()
-  const mouseX = Math.round(e.clientX)
+  const mouseX = Math.round(e.clientX) - offsetX
   const mouseY = Math.round(e.clientY) - offsetY
 
   for(let i = 0; i < buildsPlaces.length; i++) {
@@ -213,12 +241,12 @@ canvas.addEventListener('click', e => {
       (mouseY >= place.y && mouseY <= place.y + 32) &&
       !place.isOccupied
     ) {
-      towerSelect.style.top = `${place.y + 16}px`
+      towerSelect.style.top = `${(place.y + 16)}px`
       towerSelect.style.left = `${place.x - 16}px`
       towerSelect.style.display = 'flex'
       towerPosSel = {
-        x: place.x,
-        y: place.y,
+        x: place.x / scale,
+        y: place.y / scale,
         index: i
       }
       break
@@ -270,6 +298,8 @@ swBtn.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
   towerSelect.style.display = 'none'
 })
+
+window.addEventListener('resize', onResize)
 
 $('#vel').addEventListener('click', () => {
   if (speedMulti < 3) speedMulti++
