@@ -307,3 +307,7 @@ $('#vel').addEventListener('click', () => {
   else speedMulti = 1
   updateGui = true
 })
+
+
+$('#show_howto').addEventListener('click', () => $('#howto').style.display = 'flex')
+$('#close_howto').addEventListener('click', () => $('#howto').style.display = 'none')

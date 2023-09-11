@@ -71,15 +71,20 @@ body {
 }
 
 #start_screen,
-#game_over {
+#game_over,
+#howto {
 	position: absolute;
 	top: 50%;
 	left: 0;
-	transform: translateY(-50%);
 	text-align: center;
 	display: block;
 	width: 100%;
 	color: #38d973;
+}
+
+#start_screen,
+#game_over {
+	transform: translateY(-50%);
 }
 
 #game_over .title {
@@ -112,18 +117,24 @@ button,
 	background-position: center;
 	background-size: 26px;
 	background-repeat: no-repeat;
-	image-rendering: pixelated;
 	border: 0;
 }
 
+img {
+	image-rendering: pixelated;
+}
+
 #start_game,
-#goto_start {
+#goto_start,
+#show_howto,
+#close_howto {
 	font-size: 1.2rem;
 	border: 0;
 	margin: 1rem auto;
 	background-color: #38d973;
 	font-weight: bold;
 	color: #472d3c;
+	display: block;
 }
 
 #start_wave {
@@ -168,6 +179,31 @@ button,
 	text-align: center;
 	padding: 0 .5rem;
 	cursor: pointer;
+}
+
+#howto {
+	background-color: rgba($color: #000000, $alpha: 0.7);
+	font-size: 1.2rem;
+	display: none;
+	top: 0;
+	height: 100%;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+
+	div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin: .3rem auto;
+
+		img {
+			padding: 0 .5rem;
+			height: 24px;
+			width: 24px;
+		}
+	}
 }
 
 @media (max-height: 420px) {
