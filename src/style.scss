@@ -36,7 +36,7 @@ body {
 	display: inline-block;
 	background-position: center;
 	background-size: 16px;
-	background-image: url(/assets/coin.png);
+	background-image: url('/assets/coin.png');
 	background-repeat: no-repeat;
 }
 
@@ -54,11 +54,11 @@ body {
 	}
 
 	.heart {
-		background-image: url(/assets/heart.png);
+		background-image: url('/assets/heart.png');
 	}
 
 	.heart_empty {
-		background-image: url(/assets/heart_empty.png);
+		background-image: url('/assets/heart_empty.png');
 	}
 }
 
@@ -129,7 +129,7 @@ button,
 #start_wave {
 	display: none;
 	position: absolute;
-	background-image: url('assets/enemy_alert.png');
+	background-image: url('/assets/enemy_alert.png');
 }
 
 #tower_select {
