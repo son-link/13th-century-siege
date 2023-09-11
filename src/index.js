@@ -193,6 +193,7 @@ const onResize = () => {
   const winHeight = window.innerHeight
   
   scale = gameStyle.height.replace('px', '') / (412)
+  scale = parseFloat(scale.toFixed(2))
 
   $('#game').style.width = (winHeight < 420) ? `${640 * scale}px` : '100%'
   scaleCanvas = true
@@ -201,18 +202,29 @@ const onResize = () => {
   offsetX = gameOffset.left
 
   // Load builds positions
+  const oldPlaces = buildsPlaces;
   buildsPlaces = []
   builds_pos.forEach( (row, y) => {
     row.forEach( (tile, x) => {
       if (tile == 343) {
         buildsPlaces.push({
-          x: (x * 32) * scale,
-          y: (y * 32) * scale,
-          isOccupied: false
+          x: Math.floor(x * (32 * scale)),
+          y: Math.floor(y * (32 * scale)),
         })
       }
     })
   })
+
+  if (!!oldPlaces) {
+    buildsPlaces.forEach( (place, i) => {
+      if (!!oldPlaces[i] && oldPlaces[i].isOccupied) buildsPlaces[i].isOccupied = true
+    })
+  }
+
+  swBtn.style.left = '0'
+  swBtn.style.top = `${Math.floor((first_wp.y + offsetY - 16) * scale)}px`
+  swBtn.style.width = `${32 * scale}px`
+  swBtn.style.height = `${32 * scale}px`
 }
 
 canvas.addEventListener('click', e => {
@@ -223,19 +235,6 @@ canvas.addEventListener('click', e => {
   for(let i = 0; i < buildsPlaces.length; i++) {
     const place = buildsPlaces[i]
 
-    /*
-    if (
-      (mouseX >= place.x && mouseX <= place.x + 32) &&
-      (mouseY >= place.y && mouseY <= place.y + 32) &&
-      !place.isOccupied && coins - 100 >= 0
-    ) {
-      //towers.push(new Towers(place.x, place.y, tower, 49))
-      towers.push(new Towers(place.x, place.y, tower, 49, 1))
-      buildsPlaces[i].isOccupied = true
-      coins -= 100
-      updateGui = true
-      break
-    }*/
     if (
       (mouseX >= place.x && mouseX <= place.x + 32) &&
       (mouseY >= place.y && mouseY <= place.y + 32) &&
@@ -299,7 +298,9 @@ window.addEventListener('click', (e) => {
   towerSelect.style.display = 'none'
 })
 
-window.addEventListener('resize', onResize)
+//window.addEventListener('resize', onResize)
+const observer = new ResizeObserver( () => onResize())
+observer.observe($('#game'));
 
 $('#vel').addEventListener('click', () => {
   if (speedMulti < 3) speedMulti++
