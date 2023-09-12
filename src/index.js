@@ -86,7 +86,7 @@ const update = () => {
           projectile.position.x - tower.center.x,
           projectile.position.y - tower.center.y
         )
-        if (projectDistance >= tower.radius + 2) tower.proyectiles.splice(i, 1)
+        if (projectDistance >= tower.radius + 8) tower.proyectiles.splice(i, 1)
       }
     })
 
