@@ -16,7 +16,6 @@ window.$ = (selector) => document.querySelector(selector)
 window.waypoints = waypoints
 window.scale = 1
 window.enemies = []
-window.debug = (import.meta.env.MODE == 'development')
 window.speedMulti = 1
 
 // Local variables
@@ -86,7 +85,7 @@ const update = () => {
           projectile.position.x - tower.center.x,
           projectile.position.y - tower.center.y
         )
-        if (projectDistance >= tower.radius + 8) tower.proyectiles.splice(i, 1)
+        if (projectDistance >= tower.radius + 6) tower.proyectiles.splice(i, 1)
       }
     })
 
@@ -157,10 +156,10 @@ const newWave = () => {
   enemies = []
 
   const _enes = []
-  for (let i = 1; i <= wave; i++) {
+  for (let i = 1; i <= wave && i < 20; i++) {
     [...Array(5)].forEach( () => {
-      if (i >= 3 && i % 3 == 0) _enes.push(2)
-      else if (i >= 5 && i % 5 == 0) _enes.push(3)
+      if ((i >= 3 && i % 3 == 0) || (i >= 10 && i % 2 == 0)) _enes.push(2)
+      else if ((i >= 5 && i % 5 == 0) || (i >= 12 && i % 3 == 0)) _enes.push(3)
       else _enes.push(1)
     })
   }
@@ -168,7 +167,7 @@ const newWave = () => {
   let _offset = enemiesOffset
   
   _enes.forEach( (ene, i) => {
-    _offset += (wave >= 4 && wave % 2 == 0) ? Math.floor(enemiesOffset - (wave / 2)) : enemiesOffset
+    _offset += (wave >= 4 && wave <= 20) ? Math.floor(enemiesOffset - (wave / 2)) : enemiesOffset
     if (i > 0 && i % 5 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))

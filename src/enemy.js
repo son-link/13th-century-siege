@@ -23,13 +23,6 @@ class Enemy {
 	}
 
   draw() {
-    if (debug) {
-      ctx.beginPath()
-      ctx.fillStyle = 'rgba(255,0,0,.5)'
-      ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
-      ctx.fill()
-    }
-    
     // Life bar
     ctx.fillStyle = '#e6482e'
     ctx.fillRect(this.position.x, this.position.y + 18, 16, 6)

@@ -22,13 +22,6 @@ class Towers {
   }
 
   draw() {
-    if (debug) {
-      ctx.beginPath()
-      ctx.fillStyle = 'rgba(0,255,0,.5)'
-      ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
-      ctx.fill()
-    }
-
     ctx.drawImage(this.image, this.position.x, this.position.y, 32, 32)
     this.proyectiles.forEach(projectile => projectile.update())
   }
