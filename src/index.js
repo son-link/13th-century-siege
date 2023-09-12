@@ -278,7 +278,7 @@ document.querySelectorAll('.tower_btn').forEach( ele => {
     const tSprite =(type == 1) ? tower : tower2
 
     if (coins - reduceCoins >= 0) {
-      towers.push(new Towers(towerPosSel.x, towerPosSel.y, tSprite, 49, type))
+      towers.push(new Towers(towerPosSel.x, towerPosSel.y, tSprite, 46, type))
       buildsPlaces[towerPosSel.index].isOccupied = true
       coins -= reduceCoins
       updateGui = true
