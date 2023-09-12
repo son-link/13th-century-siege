@@ -4,6 +4,7 @@ import map from '/assets/map.png'
 import tower from '/assets/tower.png'
 import tower2 from '/assets/tower2.png'
 
+// Game classes and variables
 import { Ene1 } from './ene1.js'
 import { Ene2 } from './ene2.js'
 import { Ene3 } from './ene3.js'
@@ -28,7 +29,7 @@ let towers = []
 let buildsPlaces = []
 let startWave = false
 let enemiesOffset = 26
-const offsetY = 26 // Lo que ocupa la barra de información del juego
+const offsetY = 26
 let offsetX = 0;
 window.scale = 1
 let scaleCanvas = true
@@ -58,15 +59,23 @@ imagen.onload = () => {
 
 imagen.src = map
 
+/**
+ * This function runs every browser frame and contains the necessary
+ * to update enemy positions, projectile positions, drawing, etc.
+ */
 const update = () => {
+
+  // When changing the screen resolution, the canvas scale must be changed.
   if (scaleCanvas) {
     ctx.save()
     ctx.scale(scale, scale)
   }
 
+  // Map image
   ctx.drawImage(imagen, 0, 0, 640, 384);
 
   if (gameStatus == 2) {
+    // Update towers and proyectiles
     towers.forEach( (tower) => {
       tower.update()
       for (let i = tower.proyectiles.length - 1; i >= 0; i--) {
@@ -76,11 +85,16 @@ const update = () => {
         const xDiff = ene.center.x - projectile.position.x
         const yDiff = ene.center.y - projectile.position.y
         const distance = Math.hypot(xDiff, yDiff)
+
+        // We check to see if the projectile hits the enemy assigned to it.
+        // If so, the life is subtracted.
         if (distance < ene.radius + projectile.radius) {
           projectile.target.life -= (tower.type == 1) ? 20 : 30
           tower.proyectiles.splice(i, 1)
         }
 
+        // We check if the projectile reached the maximum distance.
+        // If so, it is deleted
         const projectDistance = Math.hypot(
           projectile.position.x - tower.center.x,
           projectile.position.y - tower.center.y
@@ -90,11 +104,14 @@ const update = () => {
     })
 
     if (startWave) {
+      //We update the enemies
       enemies.forEach(ene => ene.update());
 
       const lastWaypoint = waypoints[waypoints.length - 1]
 
       for(let i = enemies.length -1; i >= 0; i--) {
+
+        // If the enemy's life reached zero, remove it from the array and add the coins to the total.
         if (enemies[i].life <= 0) {
           coins += enemies[i].coins
           enemies.splice(i, 1)
@@ -104,10 +121,13 @@ const update = () => {
           Math.round(enemies[i].center.x) >= lastWaypoint.x &&
           Math.round(enemies[i].center.y) >= lastWaypoint.y
         ) {
+
+          //If the enemy reached the end, we subtract one life.
           enemies.splice(i, 1)
           lifes -= 1
           updateGui = true
 
+          // If we have no lives left, we show the Game Over.
           if (lifes == 0) {
             gameStatus = 3
             $('#screens').style.display = 'block'
@@ -123,22 +143,19 @@ const update = () => {
     if (enemies.length == 0 && startWave) {
       wave++
       startWave = false
-      /*
-      setTimeout( () => {
-        newWave()
-        startWave = true
-      }, 5000)
-      */
     }
   }
 
+  // If necessary, we update the game interface. This is to avoid doing it on every frame.
   if (updateGui) {
     $('#coins').innerText = coins
     $('#lifes').innerHTML = ''
+
     for (let i = 1; i <= 5; i++) {
       const cssClass = (i <= lifes) ? 'heart' : 'heart_empty'
       $('#lifes').innerHTML +=  `<span class="${cssClass}" /></span>`
     }
+
     $('#wave').innerText = `Wave: ${wave}`
     $('#vel').innerText = `X${speedMulti}`
     updateGui = false
@@ -149,9 +166,13 @@ const update = () => {
     scaleCanvas = false
   }
 
+  //This function is what causes update() to autofill every frame.
   requestAnimationFrame(update)
 }
 
+/**
+ * This function is in charge of generating each wave.
+ */
 const newWave = () => {
   enemies = []
 
@@ -175,6 +196,9 @@ const newWave = () => {
   })
 }
 
+/**
+ * This function resets various game variables
+ */
 const reset = () => {
   enemies = []
   towers = []
@@ -187,6 +211,9 @@ const reset = () => {
   speedMulti = 1
 }
 
+/**
+ * This function is called every time the screen size or orientation changes
+ */
 const onResize = () => {
   const gameStyle = window.getComputedStyle($('#game'))
   const winHeight = window.innerHeight
@@ -200,7 +227,7 @@ const onResize = () => {
   const gameOffset = canvas.getBoundingClientRect()
   offsetX = gameOffset.left
 
-  // Load builds positions
+  // (Re)Load builds positions
   const oldPlaces = buildsPlaces;
   buildsPlaces = []
   builds_pos.forEach( (row, y) => {
@@ -258,7 +285,6 @@ $('#start_game').addEventListener('click', () => {
   reset()
   gameStatus = 2
   newWave()
-  //setTimeout( () => startWave = true, 5000)
   $('#screens').style.display = 'none'
   $('#start_screen').style.display = 'none'
 })
@@ -297,7 +323,6 @@ window.addEventListener('click', (e) => {
   towerSelect.style.display = 'none'
 })
 
-//window.addEventListener('resize', onResize)
 const observer = new ResizeObserver( () => onResize())
 observer.observe($('#game'));
 
@@ -306,7 +331,6 @@ $('#vel').addEventListener('click', () => {
   else speedMulti = 1
   updateGui = true
 })
-
 
 $('#show_howto').addEventListener('click', () => $('#howto').style.display = 'flex')
 $('#close_howto').addEventListener('click', () => $('#howto').style.display = 'none')
