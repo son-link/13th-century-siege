@@ -158,7 +158,7 @@ const newWave = () => {
 
   const _enes = []
   for (let i = 1; i <= wave; i++) {
-    [...Array(4)].forEach( () => {
+    [...Array(5)].forEach( () => {
       if (i >= 3 && i % 3 == 0) _enes.push(2)
       else if (i >= 5 && i % 5 == 0) _enes.push(3)
       else _enes.push(1)
@@ -168,8 +168,8 @@ const newWave = () => {
   let _offset = enemiesOffset
   
   _enes.forEach( (ene, i) => {
-    _offset += (wave >= 3 && wave % 3 == 0) ? enemiesOffset - (wave / 3) : enemiesOffset
-    if (i > 0 && i % 4 == 0) _offset += enemiesOffset
+    _offset += (wave >= 4 && wave % 2 == 0) ? Math.floor(enemiesOffset - (wave / 2)) : enemiesOffset
+    if (i > 0 && i % 5 == 0) _offset += enemiesOffset
     if (ene == 1) enemies.push(new Ene1(waypoints[0].x - _offset, waypoints[0].y - 8))
     else if (ene == 2) enemies.push(new Ene2(waypoints[0].x - _offset, waypoints[0].y - 8))
     else enemies.push(new Ene3(waypoints[0].x - _offset, waypoints[0].y - 8))    
