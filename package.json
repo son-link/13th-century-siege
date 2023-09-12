@@ -1,6 +1,6 @@
 {
   "name": "13th-century-siege",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Tower Defense game make for js13kGames 2023",
   "main": "src/index.js",
   "scripts": {
