@@ -11,6 +11,7 @@ import { Ene3 } from './ene3.js'
 import waypoints from './waypoints.js'
 import { Towers } from "./towers.js";
 import builds_pos from "./builds_pos.js";
+import { hit } from './sounds'
 
 // Global variables
 window.$ = (selector) => document.querySelector(selector)
@@ -91,6 +92,7 @@ const update = () => {
         if (distance < ene.radius + projectile.radius) {
           projectile.target.life -= (tower.type == 1) ? 20 : 30
           tower.proyectiles.splice(i, 1)
+          hit()
         }
 
         // We check if the projectile reached the maximum distance.

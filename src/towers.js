@@ -1,4 +1,5 @@
 import { Proyectile } from "./proyectile.js";
+import { shoot } from "./sounds.js";
 
 class Towers {
 	constructor(x, y, sprite, radius, type=1) {
@@ -42,6 +43,7 @@ class Towers {
             },
             target: ene
           }))
+          shoot()
           break
         }
       }
